@@ -1,0 +1,31 @@
+image: node:16-alpine
+
+pipelines:
+  branches:
+    staging:
+      - step:
+          caches:
+            - node
+          script:
+            - npm install
+            - npm install -g serverless
+            - serverless config credentials --provider aws --key ${AWS_DEV_LAMBDA_KEY} --secret ${AWS_DEV_LAMBDA_SECRET}
+            - serverless deploy --stage staging --region us-east-2
+    dev:
+      - step:
+          caches:
+            - node
+          script:
+            - npm install
+            - npm install -g serverless
+            - serverless config credentials --provider aws --key ${AWS_DEV_LAMBDA_KEY} --secret ${AWS_DEV_LAMBDA_SECRET}
+            - serverless deploy --stage dev --region us-west-1
+    main:
+      - step:
+          caches:
+            - node
+          script:
+            - npm install
+            - npm install -g serverless
+            - serverless config credentials --provider aws --key ${AWS_DEV_LAMBDA_KEY} --secret ${AWS_DEV_LAMBDA_SECRET}
+            - serverless deploy --stage prod --region us-east-1

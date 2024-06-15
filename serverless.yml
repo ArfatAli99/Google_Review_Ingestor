@@ -1,0 +1,28 @@
+app: google-review-Ingestor
+service: google-review-Ingestor
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  vpc:
+    securityGroupIds:
+      - ${file(env.${opt:stage, self:provider.stage}.json):SECURITY_GROUP_REGION}
+    subnetIds:
+      - ${file(env.${opt:stage, self:provider.stage}.json):SUB_NET_ID_ONE}
+      - ${file(env.${opt:stage, self:provider.stage}.json):SUB_NET_ID_TWO}
+
+functions:
+  api:
+    handler: index.handler
+    environment: ${file(env.${opt:stage, self:provider.stage}.json)}
+    events:
+      - http:
+          path: /api/reviews
+          method: POST
+          cors:
+            origin: "*" # <-- Specify allowed origin
+            headers: "*"
