@@ -17,10 +17,6 @@ This project is a serverless API designed to fetch review data from Google and i
 To fetch review data from Google, you need to set up Google API credentials and configure them securely in the Serverless environment variables. Follow these steps:
 
 1. Set up Google API credentials with appropriate permissions to access review data.
-2. Securely configure these credentials in the Serverless environment variables. Example:
-   ```sh
-   serverless config credentials --provider google --key <path_to_google_keyfile.json>
-   ```
 
 ## Deployment
 
